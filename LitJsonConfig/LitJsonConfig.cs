@@ -8,6 +8,9 @@ using LitJson;
 
 namespace Libraries.LitJsonConfig
 {
+    /// <summary>
+    /// A Example Config That Can Be Passed To The Methods SaveConfig() And LoadConfig().
+    /// </summary>
     public class TestConfigClass
     {
         public int Test1 = 69;
