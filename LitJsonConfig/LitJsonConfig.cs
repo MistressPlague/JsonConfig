@@ -82,7 +82,7 @@ namespace Libraries.LitJsonConfig
         /// <typeparam name="T">You Should Not Need To Explicitly Define This.</typeparam>
         /// <param name="type">Your Input Type, Such As A Public Class Of Items, Such As Ints, Bools And Strings.</param>
         /// <param name="DirToConfig">The Path To Your Configuration File To Create/Update.</param>
-        /// <param name="Readable">Whether You Want This Config To Be Compressed To The Point The Average User Wont Be Able To Read It.</param>
+        /// <param name="Readable">Whether You Want This Config To Be Readable By The Average User.</param>
         /// <returns>A Tuple Of If It Was Successful, And A Message.</returns>
         internal static Tuple<bool, string> SaveConfig<T>(T type, string DirToConfig, bool Readable = true)
         {
