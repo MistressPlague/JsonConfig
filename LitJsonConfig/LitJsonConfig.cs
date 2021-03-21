@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LitJson;
+using System;
+using System.IO;
+using System.IO.Compression;
+using System.Text;
 
 namespace Libraries.LitJsonConfig
 {
@@ -23,13 +21,70 @@ namespace Libraries.LitJsonConfig
     internal static class LitJsonConfig
     {
         /// <summary>
+        /// Helper Methods
+        /// </summary>
+        private class Helpers
+        {
+            /// <summary>
+            /// Compresses the string.
+            /// </summary>
+            /// <param name="text">The text.</param>
+            /// <returns></returns>
+            public static string CompressString(string text)
+            {
+                byte[] buffer = Encoding.UTF8.GetBytes(text);
+                var memoryStream = new MemoryStream();
+                using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
+                {
+                    gZipStream.Write(buffer, 0, buffer.Length);
+                }
+
+                memoryStream.Position = 0;
+
+                var compressedData = new byte[memoryStream.Length];
+                memoryStream.Read(compressedData, 0, compressedData.Length);
+
+                var gZipBuffer = new byte[compressedData.Length + 4];
+                Buffer.BlockCopy(compressedData, 0, gZipBuffer, 4, compressedData.Length);
+                Buffer.BlockCopy(BitConverter.GetBytes(buffer.Length), 0, gZipBuffer, 0, 4);
+                return Convert.ToBase64String(gZipBuffer);
+            }
+
+            /// <summary>
+            /// Decompresses the string.
+            /// </summary>
+            /// <param name="compressedText">The compressed text.</param>
+            /// <returns></returns>
+            public static string DecompressString(string compressedText)
+            {
+                byte[] gZipBuffer = Convert.FromBase64String(compressedText);
+                using (var memoryStream = new MemoryStream())
+                {
+                    int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
+                    memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
+
+                    var buffer = new byte[dataLength];
+
+                    memoryStream.Position = 0;
+                    using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
+                    {
+                        gZipStream.Read(buffer, 0, buffer.Length);
+                    }
+
+                    return Encoding.UTF8.GetString(buffer);
+                }
+            }
+        }
+
+        /// <summary>
         /// Saves Your Type To Config - NOTE: Your Type MUST Be Public, Not Internal Or Private.
         /// </summary>
         /// <typeparam name="T">You Should Not Need To Explicitly Define This.</typeparam>
         /// <param name="type">Your Input Type, Such As A Public Class Of Items, Such As Ints, Bools And Strings.</param>
         /// <param name="DirToConfig">The Path To Your Configuration File To Create/Update.</param>
+        /// <param name="Readable">Whether You Want This Config To Be Compressed To The Point The Average User Wont Be Able To Read It.</param>
         /// <returns>A Tuple Of If It Was Successful, And A Message.</returns>
-        internal static Tuple<bool, string> SaveConfig<T>(T type, string DirToConfig)
+        internal static Tuple<bool, string> SaveConfig<T>(T type, string DirToConfig, bool Readable = true)
         {
             if (type == null)
             {
@@ -43,7 +98,14 @@ namespace Libraries.LitJsonConfig
 
             try
             {
-                File.WriteAllText(DirToConfig, JsonMapper.ToJson(type));
+                if (Readable)
+                {
+                    File.WriteAllText(DirToConfig, JsonMapper.ToJson(type));
+                }
+                else
+                {
+                    File.WriteAllText(DirToConfig, Helpers.CompressString(JsonMapper.ToJson(type)));
+                }
 
                 return Tuple.Create(true, "Success - Config Saved!");
             }
@@ -79,7 +141,18 @@ namespace Libraries.LitJsonConfig
 
             try
             {
-                type = JsonMapper.ToObject<T>(File.ReadAllText(DirToConfig));
+                var Contents = File.ReadAllText(DirToConfig);
+
+                try
+                {
+                    Contents = Helpers.DecompressString(Contents);
+                }
+                catch
+                {
+
+                }
+
+                type = JsonMapper.ToObject<T>(Contents);
 
                 return Tuple.Create(true, "Success - Config Loaded!");
             }
