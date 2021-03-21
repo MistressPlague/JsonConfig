@@ -13,14 +13,14 @@ public class ConfigTest
 
 internal static ConfigTest JsonConfig = new ConfigTest();
 
-private void button2_Click(object sender, EventArgs e)
+private void LoadConfigButton_Click(object sender, EventArgs e)
 {
     var Output = LitJsonConfig.LoadConfig(ref JsonConfig, Environment.CurrentDirectory + "\\TestConfig.json");
 
     MessageBox.Show(Output.Item1 + " - " + Output.Item2);
 }
 
-private void button3_Click(object sender, EventArgs e)
+private void EditAndSaveConfigButton_Click(object sender, EventArgs e)
 {
     JsonConfig.Test2 = "I WAS EDITED! HOORAY!";
 
