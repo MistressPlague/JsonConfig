@@ -3,7 +3,7 @@ A Library For Saving/Loading A Config Easily With LitJson, Able To Entirely Seri
 
 If You Use This In Your Project, Please Star This Repo So I Can Have A Look, Might Even Help You Dev It! <3
 
-NOTE: Use Of This In Your Project Requires It Be Open Source And Contain My Original License File, Named LICENSE_PLAGUE.
+NOTE: Use Of This In Your Project Requires It Be Open Source And Contain My Original [LICENSE](https://github.com/OFWModz/LitJsonConfig/blob/main/LICENSE) File, Named LICENSE_PLAGUE.
 # Example Usage
 ```csharp
 public class ConfigTest
