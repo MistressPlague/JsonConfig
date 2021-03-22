@@ -4,6 +4,9 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 
+/// <summary>
+/// Copyright (c) Plague 2021 | LitJsonConfig By Plague.
+/// </summary>
 namespace Libraries.LitJsonConfig
 {
     /// <summary>
