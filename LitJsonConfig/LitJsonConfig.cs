@@ -4,9 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-/// <summary>
-/// Copyright (c) Plague 2021 | LitJsonConfig By Plague.
-/// </summary>
+// Copyright (c) Plague 2021 | LitJsonConfig By Plague.
 namespace Libraries.LitJsonConfig
 {
     /// <summary>
@@ -23,6 +21,8 @@ namespace Libraries.LitJsonConfig
 
     internal static class LitJsonConfig
     {
+        private static string Info = "Copyright (c) Plague 2021 | LitJsonConfig By Plague.";
+        
         /// <summary>
         /// Helper Methods
         /// </summary>
