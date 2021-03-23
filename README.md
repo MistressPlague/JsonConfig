@@ -1,7 +1,7 @@
 # LitJsonConfig
 A Library For Saving/Loading A Config Easily With LitJson, Able To Entirely Serialize Objects Back And Forth.
 
-If You Use This In Your Project, Please Star This Repo So I Can Have A Look, Might Even Help You Dev It! <3
+**If You Use This In Your Project, Please Star This Repo So I Can Have A Look, Might Even Help You Dev It! <3**
 
 NOTE: Use Of This In Your Project Requires It Contain My Original [LICENSE](https://github.com/OFWModz/LitJsonConfig/blob/main/LICENSE) File, Named LICENSE_PLAGUE & Have "[LitJsonConfig](https://github.com/OFWModz/LitJsonConfig), Licensed Under The Use-Only License" In Your README.md - You Must Also Use The Same License Or No License - Copyright Disclaimers Are To Be Preserved. - Modification Is Not Permitted. Only Use And Distribution With The Original LICENSE Intact.
 # Example Usage
