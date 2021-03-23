@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -31,8 +32,13 @@ namespace Libraries
         /// <param name="DirToConfig">The Path To Your Configuration File To Create/Update.</param>
         /// <param name="Readable">Whether You Want This Config To Be Readable By The Average User.</param>
         /// <returns>A Tuple Of If It Was Successful, And A Message.</returns>
-        internal static Tuple<bool, string> SaveConfig<T>(T type, string DirToConfig, bool Readable = true)
+        internal static Tuple<bool, string> SaveConfig<T>(T type, string DirToConfig = null, bool Readable = true)
         {
+            if (DirToConfig == null)
+            {
+                DirToConfig = Environment.CurrentDirectory + "\\" + Assembly.GetExecutingAssembly().GetName().Name + ".json";
+            }
+
             if (type == null)
             {
                 return Tuple.Create(false, "Type Is Null!");
@@ -69,8 +75,13 @@ namespace Libraries
         /// <param name="type">Your Input Type, Such As A Public Class Of Items, Such As Ints, Bools And Strings.</param>
         /// <param name="DirToConfig">The Path To Your Configuration File To Load From/Create With Default Values In The Type Provided.</param>
         /// <returns>A Tuple Of If It Was Successful, And A Message.</returns>
-        internal static Tuple<bool, string> LoadConfig<T>(ref T type, string DirToConfig)
+        internal static Tuple<bool, string> LoadConfig<T>(ref T type, string DirToConfig = null)
         {
+            if (DirToConfig == null)
+            {
+                DirToConfig = Environment.CurrentDirectory + "\\" + Assembly.GetExecutingAssembly().GetName().Name + ".json";
+            }
+
             if (type == null)
             {
                 return Tuple.Create(false, "Type Is Null!");
