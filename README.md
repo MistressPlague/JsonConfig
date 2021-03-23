@@ -32,3 +32,9 @@ private void EditAndSaveConfigButton_Click(object sender, EventArgs e)
 
     MessageBox.Show(Output.Item1 + " - " + Output.Item2);
 }
+```
+
+# To-Do:
+- [x] Make Easier To Use
+- [x] Add Ability To Effectively Obfuscate The Config Via A Parameter (Default Is Readable)
+- [ ] Finish Documentation Here
