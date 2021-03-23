@@ -34,12 +34,13 @@ private void EditAndSaveConfigButton_Click(object sender, EventArgs e)
 }
 ```
 
-# To-Do:
-- [x] Make Easier To Use
-- [x] Add Ability To Effectively Obfuscate The Config Via A Parameter (Default Is Readable)
-- [ ] Finish Documentation Here
-
+# Info:
 Method | Function
 ------------ | -------------
 LitJsonConfig.LoadConfig<T>(T type, string DirToConfig) | Loads The Config File At The Dir Specified Then Applies All The Found Matching Values To Your Input Type (Such As A Class).
 LitJsonConfig.SaveConfig<T>(T type, string DirToConfig, bool Readable = true) | Saves The Config File At The Dir Specified With All Of The Values Found In The Input Type (Such As Ints, Bools, Etc) - NOTE: bool Readable Specifies If You Want The Config To Be Readable By The Average User.
+
+# To-Do:
+- [x] Make Easier To Use
+- [x] Add Ability To Effectively Obfuscate The Config Via A Parameter (Default Is Readable)
+- [ ] Finish Documentation Here
