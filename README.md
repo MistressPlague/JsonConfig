@@ -7,7 +7,7 @@ A Library For Saving/Loading A Config Easily With Json, Able To Entirely Seriali
 
 **NOTE: Use Of This Requires You Add Utf8Json To Your Project. Click Tools > NuGet Package Manager > Package Manager Console Then Type: Install-Package Utf8Json**
 
-JsonConfig Standalone .cs File: [JsonConfig](https://github.com/OFWModz/JsonConfig/blob/main/JsonConfigTest/JsonConfigTest/Libraries/JsonConfig.cs)
+JsonConfig Standalone .cs File: [JsonConfig.cs](https://github.com/OFWModz/JsonConfig/blob/main/JsonConfigTest/JsonConfigTest/Libraries/JsonConfig.cs)
 
 # Example Usage
 ```csharp
