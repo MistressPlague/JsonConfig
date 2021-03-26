@@ -3,7 +3,7 @@ A Library For Saving/Loading A Config Easily With Json, Able To Entirely Seriali
 
 **If You Use This In Your Project, Please Star This Repo So I Can Have A Look, Might Even Help You Dev It! <3**
 
-`NOTE: Use Of This In Your Project Requires It Contain My Original` [LICENSE](https://github.com/OFWModz/JsonConfig/blob/main/LICENSE) `File, Named LICENSE_PLAGUE & Have:` "[JsonConfig](https://github.com/OFWModz/JsonConfig), Licensed Under The Use-Only License" `In Your README.md - You Must Also Use The Same License Or No License - Copyright Disclaimers Are To Be Preserved. - Modification Is Not Permitted. Only Use And Distribution With The Original LICENSE Intact.`
+`NOTE: Use Of This In Your Project Requires It Contain My Original` [LICENSE](https://github.com/OFWModz/JsonConfig/blob/main/LICENSE) `File, Named LICENSE_PLAGUE & Have:` "[JsonConfig](https://github.com/OFWModz/JsonConfig), Licensed Under The Use-Only License" `In Your README.md - You Must Also Use The Same License Or No License - Copyright Disclaimers Are To Be Preserved. - Modification Is Not Permitted. Only Use And Distribution With The Original LICENSE Intact. - Optionally You Can Not Include My Source In Your Repo And Only Include The LICENSE.`
 
 **NOTE: Use Of This Requires You Add Utf8Json To Your Project. Click Tools > NuGet Package Manager > Package Manager Console Then Type: Install-Package Utf8Json**
 
