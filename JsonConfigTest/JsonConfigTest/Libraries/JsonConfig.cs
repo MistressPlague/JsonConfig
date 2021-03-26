@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using System.Text;
-using Utf8Json;
+using Spreads.Serialization.Utf8Json;
 
 // Copyright (c) Plague 2021 | Config By Plague.
 namespace Libraries
