@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using System.Text;
-using Newtonsoft.Json;
+using Utf8Json;
 
 // Copyright (c) Plague 2021 | Config By Plague.
 namespace Libraries
@@ -53,11 +53,11 @@ namespace Libraries
             {
                 if (Readable)
                 {
-                    File.WriteAllText(DirToConfig, JsonConvert.SerializeObject(type));
+                    File.WriteAllText(DirToConfig, JsonSerializer.Serialize(type).ConvertToString());
                 }
                 else
                 {
-                    File.WriteAllText(DirToConfig, Helpers.CompressString(JsonConvert.SerializeObject(type)));
+                    File.WriteAllText(DirToConfig, Helpers.CompressString(JsonSerializer.Serialize(type).ConvertToString()));
                 }
 
                 return Tuple.Create(true, "Success - Config Saved!");
@@ -110,7 +110,7 @@ namespace Libraries
 
                 }
 
-                type = JsonConvert.DeserializeObject<T>(Contents);
+                type = JsonSerializer.Deserialize<T>(Contents);
 
                 return Tuple.Create(true, "Success - Config Loaded!");
             }
@@ -119,61 +119,76 @@ namespace Libraries
                 return Tuple.Create(false, "Exception Caught!\nException:\n\n" + ex);
             }
         }
+    }
+
+    /// <summary>
+    /// Helper Methods
+    /// </summary>
+    public static class Helpers
+    {
+        /// <summary>
+        /// Compresses the string.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        public static string CompressString(string text)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(text);
+            var memoryStream = new MemoryStream();
+            using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
+            {
+                gZipStream.Write(buffer, 0, buffer.Length);
+            }
+
+            memoryStream.Position = 0;
+
+            var compressedData = new byte[memoryStream.Length];
+            memoryStream.Read(compressedData, 0, compressedData.Length);
+
+            var gZipBuffer = new byte[compressedData.Length + 4];
+            Buffer.BlockCopy(compressedData, 0, gZipBuffer, 4, compressedData.Length);
+            Buffer.BlockCopy(BitConverter.GetBytes(buffer.Length), 0, gZipBuffer, 0, 4);
+            return Convert.ToBase64String(gZipBuffer);
+        }
 
         /// <summary>
-        /// Helper Methods
+        /// Decompresses the string.
         /// </summary>
-        private class Helpers
+        /// <param name="compressedText">The compressed text.</param>
+        /// <returns></returns>
+        public static string DecompressString(string compressedText)
         {
-            /// <summary>
-            /// Compresses the string.
-            /// </summary>
-            /// <param name="text">The text.</param>
-            /// <returns></returns>
-            public static string CompressString(string text)
+            byte[] gZipBuffer = Convert.FromBase64String(compressedText);
+            using (var memoryStream = new MemoryStream())
             {
-                byte[] buffer = Encoding.UTF8.GetBytes(text);
-                var memoryStream = new MemoryStream();
-                using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
-                {
-                    gZipStream.Write(buffer, 0, buffer.Length);
-                }
+                int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
+                memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
+
+                var buffer = new byte[dataLength];
 
                 memoryStream.Position = 0;
-
-                var compressedData = new byte[memoryStream.Length];
-                memoryStream.Read(compressedData, 0, compressedData.Length);
-
-                var gZipBuffer = new byte[compressedData.Length + 4];
-                Buffer.BlockCopy(compressedData, 0, gZipBuffer, 4, compressedData.Length);
-                Buffer.BlockCopy(BitConverter.GetBytes(buffer.Length), 0, gZipBuffer, 0, 4);
-                return Convert.ToBase64String(gZipBuffer);
-            }
-
-            /// <summary>
-            /// Decompresses the string.
-            /// </summary>
-            /// <param name="compressedText">The compressed text.</param>
-            /// <returns></returns>
-            public static string DecompressString(string compressedText)
-            {
-                byte[] gZipBuffer = Convert.FromBase64String(compressedText);
-                using (var memoryStream = new MemoryStream())
+                using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
                 {
-                    int dataLength = BitConverter.ToInt32(gZipBuffer, 0);
-                    memoryStream.Write(gZipBuffer, 4, gZipBuffer.Length - 4);
-
-                    var buffer = new byte[dataLength];
-
-                    memoryStream.Position = 0;
-                    using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
-                    {
-                        gZipStream.Read(buffer, 0, buffer.Length);
-                    }
-
-                    return Encoding.UTF8.GetString(buffer);
+                    gZipStream.Read(buffer, 0, buffer.Length);
                 }
+
+                return Encoding.UTF8.GetString(buffer);
             }
+        }
+
+        /// <summary>
+        /// Converts A byte[] to a string.
+        /// </summary>
+        /// <param name="array">The array to convert.</param>
+        /// <returns></returns>
+        internal static string ConvertToString(this byte[] array)
+        {
+            if (array != null && array.Length > 0)
+            {
+                return System.Text.Encoding.UTF8.GetString(array);
+            }
+
+            return "";
         }
     }
 }
