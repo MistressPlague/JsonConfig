@@ -1,5 +1,5 @@
 # JsonConfig
-A Library For Saving/Loading A Config Easily With Json, Able To Entirely Serialize Objects Back And Forth, Especially Ideal For MelonLoader Mods.
+The **Fastest** Json Config Library For Saving/Loading A Config Easily With Json, Able To Entirely Serialize Objects Back And Forth, Especially Ideal For MelonLoader Mods For Games Such As VRChat.
 
 **If You Use This In Your Project, Please Star This Repo So I Can Have A Look, Might Even Help You Dev It! <3**
 
