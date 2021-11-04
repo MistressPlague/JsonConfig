@@ -1,3 +1,6 @@
+# Notice:
+For Use In MelonLoader Mods Or Such Where Newtonsoft.Json Is Needed To Be Used, [Click Here](https://github.com/MistressPlague/JsonConfig/tree/6b0d69e5f536dc4155d0ca9059c9256f2097e302)
+
 # JsonConfig
 The **Fastest** Json Config Library For Saving/Loading A Config Easily With Json, Able To Entirely Serialize Objects Back And Forth, Especially Ideal For MelonLoader Mods For Games Such As VRChat.
 
