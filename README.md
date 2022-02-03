@@ -51,4 +51,4 @@ JsonConfig.SaveConfig<T>(T type, string DirToConfig, bool Readable = true) | Sav
 # To-Do:
 - [x] Make Easier To Use
 - [x] Add Ability To Effectively Obfuscate The Config Via A Parameter (Default Is Readable)
-- [ ] Finish Documentation
+- [x] Finish Documentation
